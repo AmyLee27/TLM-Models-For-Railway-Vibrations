@@ -4,7 +4,7 @@ close all
 
 % addpath '.\asphalt_track_toolbox_v12'
 
-dofs = 3; % 1: 1 dof; 2: 2 dofs; 3: 3 dofs
+dofs = 2; % 1: 1 dof; 2: 2 dofs; 3: 3 dofs
 
 if(1) %computation?
     %% PROPERTIES
