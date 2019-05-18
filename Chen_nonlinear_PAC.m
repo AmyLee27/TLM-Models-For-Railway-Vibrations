@@ -322,10 +322,10 @@ if(1) %computation?
     end
             
         
-    xx1 = xlsread('xx.csv');
-    yy1 = xlsread('yy.csv');
-    zz1 = xlsread('zz.csv');
-    zx1 = xlsread('zx.csv');
+    xx1 = csvread('data/xx.csv');
+    yy1 = csvread('data/yy.csv');
+    zz1 = csvread('data/zz.csv');
+    zx1 = csvread('data/zx.csv');
 
     % Note that the stresses at (0,0,-2) is compared, so we need to find the thin layer that corresponds to 2m 
     figure
