@@ -238,18 +238,23 @@ if(1) %computation?
         % Define initial strain, stiffness & damping parameters
         % *******************************************************
 
+        [M,K0,K1,K2,K3,K4,C0,feDof]=k(feNod,feElt,feTyp,feMat,feSec,dofs);
+        
         if (q == 1)  
             soil_prop_upper = soil_prop_upper_original ;
             soil_prop_inf = soil_prop_inf_original;
             Enew(:,1) = soil_prop_upper(:,2); % New calculated Young's modulus for each iteration
             Dnew(:,1) = soil_prop_upper(:,4);  % Damping for each iteration
             strain_new(:,1) = ones(length(element_number(:,1)),1); % Calculated ratios used for each iteration (i.e., G/Gmax)
-
+            ETnew(:,1) = real(feMat(:,3)); % new calculated Youngs modulus for each element in track structure
+            DTnew(:,1) = feMat(:,6);
+            
         else           
             soil_prop_upper(:,2) = Enew(:,q);   % new thin layer properties of Young's modulus for equivalent stiffness and strain calculation
             soil_prop_inf(:,1) = Enew(1,q);   % new thin layer property of homogeneous halfspace (i.e., the property of the bottom thin layer)
             soil_prop_upper(:,4) = Dnew(:,q); % updated thin layer properties of damping
-            soil_prop_inf(:,3) = Dnew(1,q);      
+            soil_prop_inf(:,3) = Dnew(1,q); 
+            feMat(:,3) = ETnew(:,q)*(1+sqrt(-1)*DTnew(:,q));
         end
         
         % Calculate green's function in each direction
@@ -267,6 +272,8 @@ if(1) %computation?
                 oct_eps(iElt,iFreq)=octaheral(epsilon(:,iElt,iFreq),alpha);
             end
         end
+        
+        
         
         % calculate the strains in the free field in the subgrade
         [Strain_1, xx]=field_PAC_test(strain1z,strain1y,strain1x,k2,k1,nitmnode,zeroNod,feNod,y0,traction(3:3:end,:),traction(2:3:end-1,:),traction(1:3:end-2,:));
