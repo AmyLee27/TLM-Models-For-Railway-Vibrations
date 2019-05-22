@@ -1,6 +1,6 @@
 function [feMat] = trackMat(feElt,Ezz_s,nu_s,rho_s,D_s,Ezz_a,nu_a,rho_a,D_a,Ezz_b,nu_b,rho_b,D_b,Ezz_usl,nu_usl,rho_usl,D_usl,Ezz_sl,nu_sl,rho_sl,D_sl,Ezz_rp,nu_rp,rho_rp,D_rp,E_r,nu_r,rho_r,D_r)
 
-feMat = zeros(numel(feElt(:,1)),5);
+feMat = zeros(numel(feElt(:,1)),6);
 
 feMat(:,1:2) = feElt(:,1:2);
 
